@@ -58,15 +58,15 @@ sudo nano /etc/default/grub
 Añadir o modificar las siguientes líneas:
 
 ```bash
-GRUB\_CMDLINE\_LINUX="quiet splash"
+GRUB_CMDLINE_LINUX="quiet splash"
 
-GRUB\_DISABLE\_OS\_PROBER=true
+GRUB_DISABLE_OS_PROBER=true
 ```
 **Descripción:**
 
-- ```GRUB\_CMDLINE\_LINUX="quiet splash"```: hace que el sistema arranque en modo "silencioso" y no muestre información detallada. Esto puede ayudar a evitar que detalles del sistema se muestren a posibles atacantes.
+- ```GRUB_CMDLINE_LINUX="quiet splash"```: hace que el sistema arranque en modo "silencioso" y no muestre información detallada. Esto puede ayudar a evitar que detalles del sistema se muestren a posibles atacantes.
 
-- ```GRUB\_DISABLE\_OS\_PROBER=true```: desactiva el reconocimiento automático de otros sistemas operativos. Esto puede evitar que otros sistemas en el mismo disco sean añadidos al menú de GRUB, lo que fortalece el enfoque de seguridad al bloquear el acceso a otros sistemas desde GRUB.
+- ```GRUB_DISABLE_OS_PROBER=true```: desactiva el reconocimiento automático de otros sistemas operativos. Esto puede evitar que otros sistemas en el mismo disco sean añadidos al menú de GRUB, lo que fortalece el enfoque de seguridad al bloquear el acceso a otros sistemas desde GRUB.
 
 <br>
 
