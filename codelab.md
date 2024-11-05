@@ -34,6 +34,7 @@ Mantener el sistema actualizado es el primer paso esencial para cualquier medida
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
+![foto1](./img/1.png)
 
 **Descripción:**
 - ```apt update``` actualiza la lista de paquetes disponibles.
@@ -54,6 +55,7 @@ Abrir el archivo de configuración de GRUB:
 ```bash
 sudo nano /etc/default/grub
 ```
+
 <br>
 Añadir o modificar las siguientes líneas:
 
@@ -62,6 +64,9 @@ GRUB_CMDLINE_LINUX="quiet splash"
 
 GRUB_DISABLE_OS_PROBER=true
 ```
+
+![foto2](./img/2.png)
+
 **Descripción:**
 
 - ```GRUB_CMDLINE_LINUX="quiet splash"```: hace que el sistema arranque en modo "silencioso" y no muestre información detallada. Esto puede ayudar a evitar que detalles del sistema se muestren a posibles atacantes.
@@ -75,6 +80,8 @@ Guardar los cambios y luego actualizar GRUB:
 sudo update-grub
 ```
 
+![foto3](./img/3.png)
+
 ## Proteger el acceso a GRUB con contraseña
 Configurar una contraseña en GRUB impide que usuarios no autorizados modifiquen las opciones de arranque o accedan al modo de recuperación sin tu permiso.
 
@@ -84,6 +91,9 @@ Generar una contraseña para GRUB:
 ```bash
 sudo grub-mkpasswd-pbkdf2
 ```
+
+![foto4](./img/4.png)
+
 <br>
 
 Copiar el hash generado.
@@ -96,17 +106,23 @@ sudo nano /etc/grub.d/40_custom
 ```
 <br>
 
-Añadir lo siguiente (se reemplaza miusuario por tu nombre de usuario y el <contraseña generada> por el hash que copiado):
+Añadir lo siguiente (se reemplaza miusuario por tu nombre de usuario y <contraseña generada> por el hash copiado):
 ```bash
 set superusers="miusuario"
 password_pbkdf2 miusuario <contraseña generada>
 ```
+
+![foto5](./img/5.png)
+
 <br>
 
 Guardar y actualizar GRUB para aplicar la contraseña:
 ```bash
 sudo update-grub
 ```
+
+![foto6](./img/6.png)
+
 
 ## Configurar AppArmor (Opcional)
 
@@ -118,12 +134,18 @@ Instalar AppArmor:
 ```bash
 sudo apt install apparmor apparmor-utils
 ```
+
+![foto7](./img/7.png)
+
 <br>
 
 Activar AppArmor en el arranque:
 ```bash
 sudo systemctl enable apparmor
 ```
+
+![foto8](./img/8.png)
+
 
 <br>
 
@@ -132,11 +154,13 @@ Para ver el estado y configurarlo para cada aplicación, usa:
 sudo aa-status
 ```
 
+![foto9](./img/9.png)
+
 <br>
 
 ## Deshabilitar servicios innecesarios al arranque
 
-Cada servicio que se inicia en el arranque es un posible punto de vulnerabilidad. Desactiva los servicios que no sean necesarios para reducir la superficie de ataque.
+Cada servicio que se inicia en el arranque es un posible punto de vulnerabilidad. Desactivar los servicios que no sean necesarios para reducir la superficie de ataque.
 
 **Pasos:**
 
@@ -144,6 +168,8 @@ Listar los servicios que están habilitados en el arranque:
 ```bash
 sudo systemctl list-unit-files --type=service
 ```
+
+![foto10](./img/10.png)
 
 <br>
 
@@ -154,10 +180,12 @@ sudo systemctl disable nombre_del_servicio
 
 <br>
 
-Por ejemplo, si no es necesario el servicio SSH, se desactivaría de la siguiente manera:
+Por ejemplo, si no es necesario el servicio CUPS, se desactivaría de la siguiente manera:
 ```bash
-sudo systemctl disable ssh
+sudo systemctl disable cups
 ```
+
+![foto11](./img/11.png)
 
 ## Monitorear los logs de arranque
 Revisar los registros del sistema ayuda a detectar intentos de acceso no autorizado o posibles problemas en el arranque.
@@ -167,7 +195,9 @@ Revisar los registros del sistema ayuda a detectar intentos de acceso no autoriz
 journalctl -b
 ```
 
-Este comando muestra el registro de eventos desde el último arranque. Revisa estos logs regularmente y configúralos para que se almacenen en un lugar seguro.
+![foto12](./img/12.png)
+
+Este comando muestra el registro de eventos desde el último arranque.
 
 ## Conclusión
 Implementar un bastionado efectivo en el arranque de un sistema Debian no solo fortalece la seguridad en una etapa temprana del funcionamiento del sistema, sino que también proporciona una base sólida para asegurar el entorno operativo en su totalidad. Cada medida de seguridad aplicada en esta guía aborda un posible vector de ataque, haciendo que el sistema sea más resistente a intentos de acceso no autorizado, modificación no deseada y ataques basados en el arranque.
